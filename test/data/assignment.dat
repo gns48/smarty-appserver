@@ -1,0 +1,5 @@
+@a = @a
+@100.var = @134.val
+@a = @123.var ? &global ? @zz
+@z = @z_z
+

@@ -1,0 +1,31 @@
+2014-02-03  Gleb Semenov  <gleb.semenov@gmail.com>
+
+	* The logprefix clause added to the Grammar and all states
+	* The CState class extended with m_logPrefix member and proper getters/setters
+	* The CState class and all dependants refactoreed by the following rules:
+	  - all members have names m_<member name>
+	  - all setters have names set_<member name>
+	  - all getters have names get_<member name>
+
+2013-11-29  Gleb Semenov  <gleb.semenov@gmail.com>
+
+	* Doxygen staff added
+
+2013-10-25  Gleb Semenov  <gleb.semenov@gmail.com>
+
+	* src/utils.cpp: logging utilities added
+	* Src/utils.cpp: daemonize() finction added
+
+2013-10-24  Gleb Semenov  <gleb.semenov@gmail.com>
+
+	* Project is ready to be placed under Git' control
+	* We have main() that can read config and command line
+
+2013-10-17  Gleb Semenov  <gleb.semenov@gmail.com>
+
+	* Autotools framework added
+
+
+
+
+

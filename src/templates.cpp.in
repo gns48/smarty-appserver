@@ -1,0 +1,37 @@
+#include "config.h"
+
+// configuration file directory search list
+const char *configDirs[] = {
+    "@prefix@/etc/",
+    "@prefix@/share/appserver/",
+    "/etc/",
+    "/usr/share/appserver/",
+    "/usr/local/etc/",
+    "/usr/local/share/appserver/",
+    0
+};
+
+// version
+const char *appserverVersion =
+    "FastCGI Application Server v" VERSION ".@VCREVISION@ (c) Smatry Ltd, 2014, 2015";
+const char *appserverCommit  = "commit: @VCCOMMIT@";
+
+// default configuration file name
+const char *configFileName = "appserver.conf";
+
+// regex library
+const char *rexfileName = "regexlib.dat";
+
+// pidfile
+const char *pidFileDefault = "/var/run/appserver.pid";
+
+// scripts directory
+const char *scriptDirDefault = "@prefix@/share/appserver/scripts";
+
+// error messages (mostly used in exceptions)
+const char *nested_state = "nested state";
+const char *syntax_error = "syntax error";
+const char *invalid_state = "invalid state";
+const char *duplicate_state = "duplicate state";
+const char *unfinished_state = "unfinished state";
+const char *assmnt_error = "assignment statement syntax error";

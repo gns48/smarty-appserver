@@ -1,0 +1,125 @@
+I. Build:
+
+./reconf.sh
+./configure
+make
+sudo make install
+
+use ./configure --help to list available configuration options
+
+II. Post install.
+
+FreeBSD:
+1. add the following to the syslog.conf:
+local7.*    /var/log/appserver.log
+(use real tabs to delimit fields)
+
+2. Issue the commands:
+touch /var/log/appserver.log
+kill -HUP `cat /var/run/syslog.pid`
+
+3. Add the following to the /etc/newsyslog.conf to provide log wrapping
+/var/log/appserver.log                  644  7     100  $D3   JC
+(See fields description in file's comments)
+
+Linux:
+1. copy conf/30-appserver-rsyslog.conf 	-> /etc/rsyslog.d/
+2. copy conf/appserver.logrotate	-> /etc/logrotate.d/appserver
+
+2. Issue the commands:
+touch /var/log/appserver.log
+kill -HUP `cat /var/run/rsyslog.pid`
+
+III. Setup.
+
+The application server file and directory layout is as following:
+
+item            Linux                            FreeBSD
+--------------  ---------------------	         ----------------------
+startup	script	/etc/init.d/appserver           /usr/local/etc/rc.d/appserver
+config file	    /etc/appserver.conf		        /usr/local/etc/appserver.conf
+data dir	    /usr/share/appserver		    /usr/local/share/appserver
+scripts		    /usr/share/appserver/scripts    /usr/local/share/appserver/scripts
+
+The configuration file has win.ini-like format and contains enough comments.
+Usually you need to:
+1) Define the port on which the application server will wait for 
+   incoming connections.
+2) Define the list of scripts the server will execute.
+3) Configure database connection(s)
+
+III.1  Define the port
+
+For incoming connection, the application server may use either Unix
+domain socket or TCP port. Unix domain socket name or TCP port number 
+both specified in the fcgisocket parameter in the [common] section.
+
+To make the application server listen of Unix domain socket use the following
+syntax:
+
+fcgisocket = /tmp/appsocket
+
+To specify the TCP port number use the following
+
+fcgisocket = :9191 (note! ':' is mandatory)
+
+The application server scripts directory is /usr/[local]/share/appserver/scripts 
+by default and may be set by the scriptdir parameter in the [common] section.
+
+III.2 Define the list of scripts
+
+Since our application server is just a fast-cgi application that is called by 
+a web server we need to define a parameter of CGI request that well be the script selector.
+
+Consider the following request:
+
+http://server&function=login&data={"phone_number":"7-123","password_hash":"202cb962ac59075b964b07152d234b70"}
+
+than we need to know which parameter of a request will define our script to run. 
+By default we expect that the request  contains the function parameter and it's 
+value will be used to define the script to run.
+In some cases it needs to use the other parameter as the script selector. 
+We may set it's name in the script selector parameter.
+
+Scripts are stored in the scripts directory and which script to run depending 
+on selector's value is defined in the [scripts] section.
+
+Each section entry has the following format:
+
+<value> = <script name>:<entry point>
+
+It is possible to use one script with different entry points for different cases.
+
+For example, to execute the request above we may use the following line 
+
+login = login.sl:100
+
+III.3. Set up database connection(s)
+
+the application server may query some databases being in the QUERY state.
+
+To set up database connection we need to define section (or sections) with 
+the same name(s) as used in QUERY state definitions. Server will try to find 
+corresponding sections in configuration file during QUERY state parsing. 
+If an undefined database name is found than server logs this 
+as error and terminates.
+
+Each database section should contain the same set of fields:
+
+[testdb]
+dbtype = postgresql # DBMS type, currently posgres only
+dbname = smarty     # database name
+dbuser = smarty     # user
+dbpswd = smarty     # password
+dbhost = 127.0.0.1  # host
+dbport = 5432       # port
+
+
+
+
+
+ 
+
+
+
+

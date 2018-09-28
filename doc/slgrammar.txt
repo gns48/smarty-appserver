@@ -1,0 +1,169 @@
+NUMBER         ::= [0-9]+
+ENDSTATE       ::= endstate
+END            ::= end  
+FILE           ::= file
+REGEX          ::= regex
+QUERY          ::= query
+MATCH          ::= match
+HGET           ::= get
+HPOST          ::= post
+MAIL           ::= mail
+SMS            ::= sms
+SCRIPT         ::= script
+SHELL          ::= shell
+STRUCT         ::= structure
+FORMAT         ::= format
+FJSON          ::= json
+FXML           ::= xml
+DONE           ::= done
+ERROR          ::= error
+LOGPFX         ::= logprefix
+GLOBAL_VAR     ::= &[A-Za-z][A-Za-z0-9_]*
+LOCALVAR_SHORT ::= [A-Za-z][A-Za-z0-9_]*
+LOCALVAR_LONG  ::= @[0-9]+.[A-Za-z][A-Za-z0-9_]*
+PROP_VAR       ::= $[0-9]+
+STRING         ::= ".+"
+STRING_LITERAL ::= '.+'
+
+<script> ::= <state_declaration> | <state_declaration> <script>
+
+<state_declaration> ::= NUMBER <state_block> ENDSTATE
+
+<state_block> ::=
+        <end_state_block>
+      | <file_state_block>
+      | <regex_state_block>
+      | <query_state_block>
+      | <match_state_block>
+      | <http_get_state_block>
+      | <http_post_state_block>
+      | <mail_state_block>
+      | <sms_state_block>
+      | <script_state_block>
+      | <shell-escape_state_block>
+      | <struct_state_block>
+
+<end_state_block> ::= 
+        END <data_block> 
+            | <logprefix_declaration>
+
+<file_state_block> ::=
+        FILE  <file_declaration> 
+            | <done_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+            | <data_block>
+
+<regex_state_block> ::=
+        REGEX <regex_declaration>
+            | <match_declaration>
+            | <done_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+            | <oplist>
+
+<query_state_block> ::=
+        QUERY <db_declaration>
+            | <query_declaration>
+            | <done_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+            | <oplist>
+
+<match_state_block> ::=
+        MATCH <match_declaration>
+            | <case_block>
+            | <else_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+
+<http_get_state_block> ::=
+        HGET <done_declaration> <error_declaration>
+           | <logprefix_declaration>
+
+<http_post_state_block> ::=
+        HPOST <done_declaration> <error_declaration>
+           | <logprefix_declaration>
+
+<mail_state_block> ::=
+        MAIL <done_declaration> <error_declaration>
+           | <logprefix_declaration>
+
+<sms_state_block> ::=
+        SMS <done_declaration> <error_declaration>
+           | <logprefix_declaration>
+
+<script_state_block> ::= 
+        SCRIPT <done_declaration> <error_declaration>
+           | <logprefix_declaration>
+
+<shell-escape_state_block> ::=
+        SHELL <shell_declaration>
+            | <done_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+
+<struct_state_block> ::=
+        MATCH <match_declaration>
+            | <format_declaration>
+            | <done_declaration>
+            | <error_declaration>
+            | <logprefix_declaration>
+
+<file_declaration> ::= FILE STRING_LITERAL
+
+<regex_declaration> ::= REGEX STRING_LITERAL
+
+<db_declaration>    ::= DB STRING_LITERAL
+
+<logprefix_declaration> ::= LOGPFX <str>
+
+<query_declaration> ::= QUERY <str>
+
+<match_declaration> ::= MATCH <lvalue>
+
+<shell_declaration> ::= SHELL <str>
+
+<done_declaration> ::= DONE NUMBER
+
+<error_declaration> ::= ERROR NUMBER
+
+<format_declaration> ::= FORMAT FJSON|FXML
+
+<data_block> ::=
+          <empty>
+        | <data_declaration>
+        | <data_block> <data_declaration>
+
+data_declaration ::= DATA <str>
+
+<case_block> ::= 
+          <case_declaration> 
+        | <case_block> <case_declaration>
+
+<case_declaration> ::= CASE STRING_LITERAL NUMBER
+
+<else_declaration> ::= ELSE NUMBER
+
+<oplist> ::=
+          <empty>
+        | <assignment>
+        | <oplist> <assignment>
+
+assignment ::= <lvalue> '=' <expression>
+
+<lvalue> ::= GLOBAL_VAR | LOCALVAR_SHORT | LOCALVAR_LONG
+
+<expression> ::= <term> '\n' | <term> '?' <expression>
+    
+<term> ::= <lvalue> | PROP_VAR
+
+<str> ::= STRING | STRING_LITERAL
+
+<empty> ::=
+
+
+
+
+
+

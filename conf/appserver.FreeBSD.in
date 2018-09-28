@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Smarty appserver startup script
+
+# PROVIDE: appserver
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=appserver
+rcvar=appserver_enable
+
+command="@prefix@/bin/${name}"
+command_args="-d"
+
+pidfile="/tmp/${name}.pid"
+
+required_files="@prefix@/etc/${name}.conf @prefix@/share/${name}/regexlib.dat"
+
+load_rc_config $name
+run_rc_command "$1"

@@ -1,0 +1,67 @@
+# -*- mode: org; -*-
+#+TITLE: Smarty AppServer todo list
+#+AUTHOR: Gleb Semenov
+#+DATE: Mon Dec 16 19:02:14 MSK 2013
+
+* DONE [#A] Urgent! Design and implement first state discover logic.
+  Currently we have no information about first state to execute.  
+
+* Add logging everywhere
+** DONE [#A] Add the current script name parameter to the CState constructor
+*** DONE [#A] Modify CState constructor
+*** DONE [#A] add m_scriptFile member to the CState class declaration
+** DONE [#C] Add script source lines numbers for any parsed element in all states
+** TODO Universal log record format design and description
+** TODO all_states::execute() at first
+** TODO all_states::verify (log_error)
+** TODO Protocol-level logging: Design & implementation
+*** DONE add log prefix to all states
+*** TODO add code to substitute variables in log prefix 
+
+* TODO Implement currently unimplemented states:
+** DONE CMailState
+*** DONE design
+*** DONE implementation
+*** DONE testing
+** DONE CSmsState -- 
+*** DONE design
+*** DONE implementation
+*** DONE testing
+** DONE CScriptState
+*** DONE design
+*** DONE implementation
+*** DONE testing
+** TODO CSOAPState -- cancelled
+*** TODO design
+*** TODO implementation
+*** TODO testing
+** DONE CJsonState
+*** DONE design
+*** DONE implementation
+*** DONE testing
+** DONE CQueryState
+*** DONE add libpqxx detection to the configure.ac
+*** DONE Add configuration sections
+*** DONE preforked.cpp:processRequest: add database connection code
+*** DONE add state code
+
+* DONE Add FastCGI staff
+** DONE (may be) modify Cstate constructor
+** DONE change CEndState output
+
+* DONE Add preforked scheme
+** DONE Shared memory section
+** DONE master process (controls the additional forks up to hard limit)
+** DONE notifications in slaves
+
+* TODO Miscellaneous corrections and improvements
+** DONE [#A] Rewrite CAssigner::assign and assignLocal/Global to avoid double strdup/free
+** TODO [#C] Replace std::map to tr1::unordered_map with fixed search/access time 
+** TODO [#C] Rewrite parser using yacc/lex (just to learn how to do that)
+** TODO [#B] make project build with clang+libc++ 
+
+* TODO Doxygenize it !!
+
+
+
+

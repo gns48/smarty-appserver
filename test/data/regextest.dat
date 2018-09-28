@@ -1,0 +1,55 @@
+comment=# that's a comment
+comment=  # that's a comment too
+empty=
+end_state= 100 end
+file_state=200 file
+file_state=    200 file
+regex_state=300 regex
+query_state=400 query
+match_state=300 match
+get_state=500 httpget
+post_state=500 httppost
+mail_state=3 mail
+sms_state=1  sms
+script_state=   10          script
+shell_state=20 shell
+done=done 300
+done=    done   20
+error=error 300
+endstate=endstate
+case_regex=case '.+' 200
+data_double=data "some text"
+data_single=data 'some text in single quotes'
+db=db 'dbname'
+def_global_var=? &global
+def_global_var=  ? &global   
+def_global_var=  &global
+def_local_short= @a
+def_local_short= @aaa   
+def_local_short= ?  @a 
+def_local_var=@110.var
+def_local_var=  ? @110.var
+def_prop=$12
+def_prop= $12
+def_prop= $12  
+def_prop= ? $12
+def_prop=?$12  
+file=file 'dbname'
+global_equal=&global = @110.val
+global_equal=&global=@val
+global_equal=&global = &$val
+global_equal=        &global = $10
+global_equal=&global=&val
+local_equal=@10.aa = @a
+local_equal=       @10.a =      $a
+local_equal=  @10.a = @120.zz
+local_equal=@10.a = &global
+short_equal=@aa = @a
+short_equal=@a = $a
+short_equal= @azz = @120.zz
+short_equal=    @a = &global
+match_var=      match @112.var
+query=query "select * from all_tables"
+regex_double=regex ".+"
+shell=shell 'test.sh'
+

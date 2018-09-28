@@ -1,0 +1,6 @@
+Makefile
+Makefile.in
+latex
+html
+Doxyfile
+doxygen.log
