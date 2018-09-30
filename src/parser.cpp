@@ -271,7 +271,7 @@ stateMap_t* parseScript(const std::string& file) {
     bool in_stateblock = false;
     regmatch_t regmatch[REGMATCH_COUNT];
     CState *st = nullptr;
-    int stateno;
+    int stateno=0;
     
     while(getline(ifs, line)) {
         counter++;

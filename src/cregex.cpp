@@ -34,7 +34,7 @@ CRegex::CRegex(): m_pattern(""), m_errbuf(new char[m_ErrbufSize]) {};
    @param flags -- see regcomp(3)
    @throw <std::runtime_error>
 */
-CRegex::CRegex(const char* reg, const int flags) throw(std::runtime_error):
+CRegex::CRegex(const char* reg, const int flags):
     m_pattern(reg),
     m_errbuf(new char[m_ErrbufSize])
 {

@@ -39,7 +39,7 @@ public:
        @param flags -- see regcomp(3)
        @throw <std::runtime_error>
      */
-    CRegex(const char* reg, const int flags = 0) throw(std::runtime_error);
+    CRegex(const char* reg, const int flags = 0);
     /**
        @fn ~CRegex()
        @brief destructor
